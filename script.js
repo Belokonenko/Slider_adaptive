@@ -17,18 +17,17 @@ const bntRight = document.querySelector(".bnt-right");
 
 let counnt = 0;
 
+resetSize();
 
-setWidthItems();
+window.addEventListener("resize", resetSize);
 
-window.addEventListener("resize", setWidthItems);
-
-bntLeft.addEventListener('click', () => {
+bntLeft.addEventListener("click", () => {
     left();
-})
+});
 
-bntRight.addEventListener('click', () => {
+bntRight.addEventListener("click", () => {
     right();
-})
+});
 
 // --- functions ---
 
@@ -46,6 +45,11 @@ function getCounntItems() {
 
 function getMaxCounnt() {
     return getCounntItems() - getCounntVisebleItem();
+}
+
+function resetSize() {
+    setWidthItems();
+    mouveLine();
 }
 
 function setWidthItems() {
@@ -91,17 +95,20 @@ function getCounntVisebleItem() {
 // --- mouve ---
 
 function mouveLine() {
+    //------- no break point mouve -----------
+
     console.log(`function mouveline : counnt = ${counnt}`);
     if (counnt < 0) {
-       counnt = getMaxCounnt(); 
+        counnt = getMaxCounnt();
     }
 
     if (counnt > getMaxCounnt()) {
-       counnt = 0; 
+        counnt = 0;
     }
-    
-    sliderline.style.transform = `translateX(-${getWidthItem() * counnt}px)`;
 
+    //------- /no break point mouve -----------
+
+    sliderline.style.transform = `translateX(-${getWidthItem() * counnt}px)`;
 }
 
 function left() {
