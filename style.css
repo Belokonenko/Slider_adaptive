@@ -2,9 +2,9 @@
     box-sizing: border-box ;
     }
 .slider {
-    background-color: rgba(1, 2, 3, 0.3);
     height: 200px;
     overflow: hidden;
+    border: 5px solid blue;
 
 }
 
@@ -13,8 +13,6 @@
     grid-auto-flow: column;
     height: 100%;
     
-
-    background-color: rgba(1, 2, 3, 0.3);
 }
 
 .slider-item {
@@ -25,4 +23,9 @@
     background-color: rgba(1, 2, 3, 0.3);
     border: 1px solid red;
     font-size: 10rem;
+}
+
+.slider__btn {
+    padding: 10px;
+    font-size: 2rem;
 }

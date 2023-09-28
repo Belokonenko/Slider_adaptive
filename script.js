@@ -9,18 +9,111 @@
 // document.querySelector('.myDiv').getBoundingClientRect().width
 
 const slider = document.querySelector(".slider");
+const sliderline = document.querySelector(".slider-line");
 const sliderItems = document.querySelectorAll(".slider-item");
 
-setWidthSlides();
+const bntLeft = document.querySelector(".bnt-left");
+const bntRight = document.querySelector(".bnt-right");
 
-window.addEventListener("resize", checkWidth);
+let counnt = 0;
 
-function setWidthSlides() {
-    console.log("checkWidth");
-    const sliderWidgh = `${slider.clientWidth / 3}px`;
 
-    // mouve all slids and set size
+setWidthItems();
+
+window.addEventListener("resize", setWidthItems);
+
+bntLeft.addEventListener('click', () => {
+    left();
+})
+
+bntRight.addEventListener('click', () => {
+    right();
+})
+
+// --- functions ---
+
+function getWidthSlider() {
+    return slider.clientWidth;
+}
+
+function getWidthItem() {
+    return getWidthSlider() / getCounntVisebleItem();
+}
+
+function getCounntItems() {
+    return sliderItems.length;
+}
+
+function getMaxCounnt() {
+    return getCounntItems() - getCounntVisebleItem();
+}
+
+function setWidthItems() {
+    const slideWidth = `${getWidthSlider() / getCounntVisebleItem()}px`;
+
     sliderItems.forEach((item) => {
-        item.style.width = sliderWidgh;
+        // mouve all slids and set size
+        item.style.width = slideWidth;
     });
 }
+
+function getCounntVisebleItem() {
+    let counntVisebleItem = 1;
+    let width = getWidthSlider();
+
+    switch (true) {
+        case width >= 1440:
+            counntVisebleItem = 4;
+            break;
+        case width >= 1024:
+            counntVisebleItem = 4;
+            break;
+        case width >= 992:
+            counntVisebleItem = 3;
+            break;
+        case width >= 768:
+            counntVisebleItem = 3;
+            break;
+        case width >= 425:
+            counntVisebleItem = 3;
+            break;
+        case width >= 375:
+            counntVisebleItem = 2;
+            break;
+        case width >= 325:
+            counntVisebleItem = 1;
+            break;
+    }
+
+    return counntVisebleItem;
+}
+
+// --- mouve ---
+
+function mouveLine() {
+    console.log(`function mouveline : counnt = ${counnt}`);
+    if (counnt < 0) {
+       counnt = getMaxCounnt(); 
+    }
+
+    if (counnt > getMaxCounnt()) {
+       counnt = 0; 
+    }
+    
+    sliderline.style.transform = `translateX(-${getWidthItem() * counnt}px)`;
+
+}
+
+function left() {
+    --counnt;
+    mouveLine();
+}
+
+function right() {
+    ++counnt;
+    mouveLine();
+}
+
+// --- /mouve ---
+
+// --- /functions ---
