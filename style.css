@@ -12,6 +12,7 @@
     display: grid;
     grid-auto-flow: column;
     height: 100%;
+    transition: all .7s ease;
     
 }
 
