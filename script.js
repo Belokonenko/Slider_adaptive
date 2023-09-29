@@ -130,6 +130,7 @@ function right() {
 let posInit = 0;
 let posX1 = 0;
 let posX2 = 0;
+let posFinal = 0;
 
 let trfRegExp = /[-0-9.]+(?=px)/;
 
