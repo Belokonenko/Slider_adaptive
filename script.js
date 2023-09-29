@@ -136,6 +136,7 @@ let trfRegExp = /[-0-9.]+(?=px)/;
 slider.addEventListener("mousedown", swipeStart);
 slider.addEventListener("touchstart", swipeStart);
 
+
 function getEvent(event) {
     // return evetn for touch or mouse to .clientX
     return event.type.search("touch") !== -1 ? event.touches[0] : event;
@@ -148,10 +149,13 @@ function swipeStart(event) {
     sliderLine.style.transition = ""; // remove the smooth transition
 
     // отслеживать другие события на документе
-    document.addEventListener("touchmove", swipeAction);
-    document.addEventListener("touchend", swipeEnd);
-    document.addEventListener("mousemove", swipeAction);
-    document.addEventListener("mouseup", swipeEnd);
+    slider.addEventListener("touchmove", swipeAction);
+    slider.addEventListener("touchend", swipeEnd);
+    slider.addEventListener("mousemove", swipeAction);
+    slider.addEventListener("mouseup", swipeEnd);
+    slider.addEventListener("mouseout", swipeEnd);
+    slider.addEventListener("pointerout", swipeEnd);
+
 }
 
 function swipeAction(event) {
@@ -171,10 +175,14 @@ function swipeEnd() {
     // финальная позиция курсора
     posFinal = posInit - posX1;
 
-    document.removeEventListener("touchmove", swipeAction);
-    document.removeEventListener("mousemove", swipeAction);
-    document.removeEventListener("touchend", swipeEnd);
-    document.removeEventListener("mouseup", swipeEnd);
+    slider.removeEventListener("touchmove", swipeAction);
+    slider.removeEventListener("mousemove", swipeAction);
+    slider.removeEventListener("touchend", swipeEnd);
+    slider.removeEventListener("mouseup", swipeEnd);
+    slider.removeEventListener("mouseout", swipeEnd);
+
+    slider.removeEventListener("pointerout", swipeEnd);
+
 
     if (Math.abs(posFinal) > getMaxCounnt()) {         // убираем знак минус и сравниваем с порогом сдвига слайда
         if (posInit < posX1) {                       // если мы тянули вправо, то уменьшаем номер текущего слайда
@@ -187,8 +195,10 @@ function swipeEnd() {
 
     // если курсор двигался, то запускаем функцию переключения слайдов
     if (posInit !== posX1) {
-       mouveLine() ;
     }
+
+
+       mouveLine() ;
 }
 
 // --- /swipe ---

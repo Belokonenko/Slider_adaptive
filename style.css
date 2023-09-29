@@ -24,6 +24,7 @@
     background-color: rgba(1, 2, 3, 0.3);
     border: 1px solid red;
     font-size: 10rem;
+    user-select: none;
 }
 
 .slider__btn {
